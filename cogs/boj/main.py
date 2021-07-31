@@ -14,7 +14,7 @@ import cogs.boj.tiers as tiers
 
 from cogs.boj.parsers import getProblemData, getSolvedProblems, getUserData
 
-TEST_GUILD_ID = int(os.getenv('TEST_GUILD_ID'))
+TEST_GUILD_IDS = list(map(int, os.getenv('TEST_GUILD_IDS').split()))
 
 class Boj(commands.Cog):
     engine: Engine
@@ -29,7 +29,7 @@ class Boj(commands.Cog):
     @cog_ext.cog_subcommand(base='boj',
         name='user',
         description='사용자 정보를 가져옵니다.',
-        guild_ids=[TEST_GUILD_ID], options=[
+        guild_ids=TEST_GUILD_IDS, options=[
             create_option(
                 name = 'handle',
                 description = '사용자명',
@@ -90,7 +90,7 @@ class Boj(commands.Cog):
     @cog_ext.cog_subcommand(base='boj',
         name='problem',
         description='문제 정보를 가져옵니다.',
-        guild_ids=[TEST_GUILD_ID], options=[
+        guild_ids=TEST_GUILD_IDS, options=[
             create_option(
                 name = 'id',
                 description = '문제 id',

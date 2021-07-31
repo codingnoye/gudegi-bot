@@ -7,7 +7,7 @@ import os
 load_dotenv(verbose=True)
 APP_ID = os.getenv('APP_ID')
 BOT_TOKEN = os.getenv('BOT_TOKEN')
-TEST_GUILD_ID = int(os.getenv('TEST_GUILD_ID'))
+TEST_GUILD_IDS = list(map(int, os.getenv('TEST_GUILD_IDS').split()))
 
 bot = commands.Bot(
     command_prefix="",
@@ -21,7 +21,7 @@ slash = SlashCommand(bot, sync_commands=True)
 async def on_ready():
     print("Ready!")
 
-@slash.slash(name="ping", guild_ids=[TEST_GUILD_ID])
+@slash.slash(name="ping", guild_ids=TEST_GUILD_IDS)
 async def _ping(ctx):
     await ctx.send(f"Pong! ({bot.latency*1000}ms)")
 
