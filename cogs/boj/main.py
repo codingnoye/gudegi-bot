@@ -81,11 +81,13 @@ class Boj(commands.Cog):
             ))
             if handle in self.engine.users and ctx.channel.id in self.engine.users[handle].channels:
                 btns[0] = disabled_btn
-            await ctx.send(embed=embed, components=manage_components.spread_to_rows(*btns, max_in_row=3))
-            req = await wait_for_component(ctx.bot, components=btns[0])
-            btns[0] = disabled_btn
-            await self.engine.adduser(handle, req.channel.id)
-            await req.edit_origin(components=manage_components.spread_to_rows(*btns, max_in_row=3))
+                await ctx.send(embed=embed, components=manage_components.spread_to_rows(*btns, max_in_row=3))
+            else:
+                await ctx.send(embed=embed, components=manage_components.spread_to_rows(*btns, max_in_row=3))
+                req = await wait_for_component(ctx.bot, components=btns[0])
+                btns[0] = disabled_btn
+                await self.engine.adduser(handle, req.channel.id)
+                await req.edit_origin(components=manage_components.spread_to_rows(*btns, max_in_row=3))
 
     @cog_ext.cog_subcommand(base='boj',
         name='problem',
