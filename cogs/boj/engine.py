@@ -22,8 +22,11 @@ class Engine:
                 self.users = pickle.load(f)
         else:
             self.users = dict()
-    
+
     def __del__(self):
+        self.save()
+
+    def save(self):
         with open(self.fdir, 'wb') as f:
             pickle.dump(self.users, f)
 
@@ -40,7 +43,7 @@ class Engine:
             embed.add_field(name='나도 풀러 가기', value=f'[https://www.acmicpc.net/problem/{prob_id}](https://www.acmicpc.net/problem/{prob_id})', inline=False)
             for channel in user.channels:
                 await self.bot.get_channel(id=channel).send(embed=embed)
-                
+            self.save()
         crawl.start(self.users, callback)
 
     async def adduser(self, handle:str, channel:str):

@@ -11,7 +11,7 @@ async def getSolvedProblems(handle: str) -> List[str]:
             async with session.get(f'https://www.acmicpc.net/user/{handle}') as res:
                 soup = bs(await res.text(), 'html.parser')
 
-        elems = soup.select('.panel:first-child a')
+        elems = soup.select('.panel:nth-child(2) a')
         problems = set(int(elem.text) for elem in elems)
         return problems
     except:

@@ -26,6 +26,7 @@ class Crawler:
                     if len(solved_problems) == 0: continue
                     for prob_num in solved_problems^user.solved_problems:
                         await self.callback(user, prob_num)
+
                     user.solved_problems = solved_problems
                     user.solved_count = userdata['solvedCount']
                 await asyncio.sleep(20)

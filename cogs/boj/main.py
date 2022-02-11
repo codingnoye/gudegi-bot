@@ -40,6 +40,7 @@ class Boj(commands.Cog):
     )
     async def _user(self, ctx: SlashContext, handle: str):
         userdata = await getUserData(handle)
+        print(userdata)
         if userdata is None:
             embed = Embed(title = f'{handle}')
             embed.add_field(name='오류', value='사용자를 찾을 수 없습니다.')
@@ -100,7 +101,7 @@ class Boj(commands.Cog):
                 required = True
             )
         ])
-    async def _prob(self, ctx: SlashContext, id: int):
+    async def _problem(self, ctx: SlashContext, id: int):
         problem = await getProblemData(id)
         if problem is None:
             embed = Embed(title = f'#{id}')
